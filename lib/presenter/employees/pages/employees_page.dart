@@ -10,18 +10,22 @@ class EmployeesPage extends StatelessWidget {
 
   final employees = [
     User.toCreate(
+      id: 1,
       name: 'Jupira Sem Dente',
       email: 'jupirinha_dentinho@test.com',
     ),
     User.toCreate(
+      id: 2,
       name: 'Churusbengou',
       email: 'churusbengou@test.com',
     ),
     User.toCreate(
+      id: 3,
       name: 'Churusbagou',
       email: 'churusbagou@test.com',
     ),
     User.toCreate(
+      id: 4,
       name: 'Skkkkkkrrrruuuulll',
       email: 'skruuulll@test.com',
     ),
@@ -47,7 +51,10 @@ class EmployeesPage extends StatelessWidget {
           CustomUserDataTable(
             data: employees,
             headers: const ['Nome', 'Email', 'Função'],
-            onTap: (user) => context.navigateTo(AppPages.employeeDetails),
+            onTap: (user) => context.navigateTo(
+              AppPages.employeeDetails,
+              id: user.id,
+            ),
           ),
         ],
       ),

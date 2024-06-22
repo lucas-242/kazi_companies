@@ -42,6 +42,10 @@ extension RoutesExtensions on BuildContext {
 
   void closeModal<T extends Object>([T? result]) => pop(result);
 
+  void openDrawer() => RoutesService.openDrawer(this);
+
+  void closeDrawer() => RoutesService.closeDrawer(this);
+
   void showSnackBar(
     String message, {
     SnackBarType type = SnackBarType.error,

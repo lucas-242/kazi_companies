@@ -16,6 +16,12 @@ class RoutesService {
   static AppPages? get activeRoute => _currentPage;
   static bool get isPushed => _isPushed;
 
+  static void openDrawer(BuildContext context) =>
+      Scaffold.of(context).openDrawer();
+
+  static void closeDrawer(BuildContext context) =>
+      Scaffold.of(context).closeDrawer();
+
   static void navigateTo(
     BuildContext context,
     AppPages page, {
@@ -54,6 +60,7 @@ class RoutesService {
   static void pushTo(
     BuildContext context,
     AppPages page, {
+    int? id,
     Service? service,
     String? token,
     WebViewParams? webViewParams,
@@ -61,6 +68,7 @@ class RoutesService {
     _setRoutes(page, true);
 
     final params = RouteParams(
+      id: id,
       service: service,
       token: token,
       webViewParams: webViewParams,
@@ -71,7 +79,7 @@ class RoutesService {
   }
 
   static void _push(AppPages page, [RouteParams? params]) => _router.push(
-        AppPages.getRoute(page, id: params?.service?.id),
+        AppPages.getRoute(page, id: params?.id),
         extra: params,
       );
 

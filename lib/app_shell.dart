@@ -35,7 +35,7 @@ class _AppShellState extends State<AppShell> {
         leading: Builder(
           builder: (context) {
             return IconButton(
-              onPressed: () => Scaffold.of(context).openDrawer(),
+              onPressed: context.openDrawer,
               icon: const Icon(Icons.menu),
             );
           },
@@ -53,7 +53,10 @@ class _AppShellState extends State<AppShell> {
                   final menu = menus[index];
                   return ListTile(
                     title: Text(menu.name),
-                    onTap: () => context.navigateTo(menu.route),
+                    onTap: () {
+                      context.navigateTo(menu.route);
+                      context.closeDrawer();
+                    },
                   );
                 },
                 separatorBuilder: (context, index) => const Divider(),
