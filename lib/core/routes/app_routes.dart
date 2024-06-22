@@ -1,9 +1,9 @@
 abstract class AppRoutes {
   //Main Routes
   static String initial = '/';
-  static String home = '/home';
   static String services = '/services';
-  static String profile = '/profile';
+  static String clients = '/clients';
+  static String employees = '/employees';
   static String signIn = '/sign-in';
   static String signUp = '/sign-up';
   static String forgotPassword = '/forgot-password';

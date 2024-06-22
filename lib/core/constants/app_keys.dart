@@ -3,7 +3,6 @@ abstract class AppKeys {
   static const String environmentKey = 'APP_ENV';
 
   /// Key to identify if it is necessary to display the onboarding
-  static String showOnboardingStorage = 'showOnboarding';
   static String userData = 'userData';
 
   /// Calendar start date

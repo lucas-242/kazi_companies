@@ -16,7 +16,7 @@ class App extends StatelessWidget {
         BlocProvider<AppCubit>(create: (_) => AppCubit()),
       ],
       child: MaterialApp.router(
-        title: 'Kazi',
+        title: 'Kazi Companies',
         debugShowCheckedModeBanner: false,
         theme: KaziThemeSettings.light(),
         darkTheme: KaziThemeSettings.dark(),

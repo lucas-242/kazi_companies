@@ -194,7 +194,7 @@ packages:
     description:
       path: "."
       ref: master
-      resolved-ref: "3e4c4a26eaee8b6ebc04190127706be57655acd3"
+      resolved-ref: "54c66146b52ce119e2fce1e09142a258a58ee226"
       url: "https://github.com/lucas-242/kazi_core.git"
     source: git
     version: "0.0.1"
@@ -202,11 +202,11 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: master
-      resolved-ref: "84e61a04f18bbcfca9b9c1900d29f137fd7436c0"
+      ref: "0.1.1"
+      resolved-ref: a386e46379232d3ab264aed85b67b82799e4513f
       url: "https://github.com/lucas-242/kazi_design_system.git"
     source: git
-    version: "0.0.1"
+    version: "0.1.1"
   leak_tracker:
     dependency: transitive
     description:
@@ -299,10 +299,10 @@ packages:
     dependency: transitive
     description:
       name: path_provider_android
-      sha256: "9c96da072b421e98183f9ea7464898428e764bc0ce5567f27ec8693442e72514"
+      sha256: bca87b0165ffd7cdb9cad8edd22d18d2201e886d9a9f19b4fb3452ea7df3a72a
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.5"
+    version: "2.2.6"
   path_provider_foundation:
     dependency: transitive
     description:

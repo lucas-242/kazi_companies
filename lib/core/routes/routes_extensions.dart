@@ -7,6 +7,7 @@ import 'package:kazi_design_system/kazi_design_system.dart';
 extension RoutesExtensions on BuildContext {
   void navigateTo(
     AppPages page, {
+    int? id,
     Service? service,
     String? token,
     WebViewParams? webViewParams,
@@ -14,6 +15,7 @@ extension RoutesExtensions on BuildContext {
       RoutesService.navigateTo(
         this,
         page,
+        id: id,
         service: service,
         token: token,
         webViewParams: webViewParams,

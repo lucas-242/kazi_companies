@@ -19,6 +19,7 @@ class RoutesService {
   static void navigateTo(
     BuildContext context,
     AppPages page, {
+    int? id,
     Service? service,
     String? token,
     WebViewParams? webViewParams,
@@ -26,6 +27,7 @@ class RoutesService {
     _setRoutes(page);
 
     final params = RouteParams(
+      id: id,
       service: service,
       token: token,
       webViewParams: webViewParams,
@@ -46,8 +48,8 @@ class RoutesService {
     cubit.changePage(newPage);
   }
 
-  static void _navigate(AppPages page, [RouteParams? params]) => _router
-      .go(AppPages.getRoute(page, id: params?.service?.id), extra: params);
+  static void _navigate(AppPages page, [RouteParams? params]) =>
+      _router.go(AppPages.getRoute(page, id: params?.id), extra: params);
 
   static void pushTo(
     BuildContext context,
@@ -113,5 +115,5 @@ class RoutesService {
   ///
   /// TODO: Change it in the future to load data everytime the user move to a dynamic route.
   static AppPages _getLastPageFromAddServicesPage() =>
-      _lastPage == AppPages.home ? AppPages.home : AppPages.services;
+      _lastPage == AppPages.services ? AppPages.services : AppPages.services;
 }

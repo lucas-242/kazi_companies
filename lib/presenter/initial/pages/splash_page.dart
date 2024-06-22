@@ -27,7 +27,7 @@ class _SplashPageState extends State<SplashPage> {
     timer = Timer(minimumSplashTime, () => canNavigate = true);
     WidgetsBinding.instance.addPostFrameCallback((_) => _initAnimation());
     Future.delayed(const Duration(seconds: 3))
-        .then((_) => context.navigateTo(AppPages.home));
+        .then((_) => context.navigateTo(AppPages.services));
     super.initState();
   }
 
@@ -67,7 +67,7 @@ class _SplashPageState extends State<SplashPage> {
                   opacity: showText ? 1 : 0,
                   child: Text(
                     'Kazi',
-                    style: context.loginTitle,
+                    style: KaziTextStyles.loginTitle,
                     softWrap: false,
                   ),
                 ),

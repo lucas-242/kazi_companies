@@ -1,20 +1,20 @@
 import 'package:kazi_companies/core/routes/routes.dart';
 
 enum AppPages {
-  home(0),
-  services(1),
-  serviceDetails(1),
-  addServices(2),
-  servicesType(3),
-  addServiceType(4),
-  profile(5),
+  services(0),
+  serviceDetails(0),
+  addServices(1),
+  servicesType(2),
+  addServiceType(3),
+  clients(4),
+  employees(5),
+  employeeDetails(5),
   signIn(10),
   signUp(11),
   forgotPassword(12),
   resetPassword(13),
-  profileResetPassword(14),
-  privacyPolicy(15),
-  privacyPolicyWebView(16);
+  privacyPolicy(14),
+  privacyPolicyWebView(15);
 
   const AppPages(this.value);
 
@@ -27,13 +27,11 @@ enum AppPages {
       }
     }
 
-    return home;
+    return services;
   }
 
   static String getRoute(AppPages page, {int? id}) {
     switch (page) {
-      case AppPages.home:
-        return AppRoutes.home;
       case AppPages.services:
         return AppRoutes.services;
       case AppPages.addServices:
@@ -44,8 +42,13 @@ enum AppPages {
         return '${AppRoutes.services}/${AppRoutes.type}';
       case AppPages.addServiceType:
         return '${AppRoutes.services}/${AppRoutes.type}/${AppRoutes.add}';
-      case AppPages.profile:
-        return AppRoutes.profile;
+      case AppPages.clients:
+        return AppRoutes.clients;
+      case AppPages.employees:
+        return AppRoutes.employees;
+      case AppPages.employeeDetails:
+        return '${AppRoutes.employees}/$id';
+
       case AppPages.signIn:
         return AppRoutes.signIn;
       case AppPages.signUp:
@@ -54,8 +57,6 @@ enum AppPages {
         return AppRoutes.forgotPassword;
       case AppPages.resetPassword:
         return '/${AppRoutes.resetPassword}';
-      case AppPages.profileResetPassword:
-        return '${AppRoutes.profile}/${AppRoutes.resetPassword}';
       case AppPages.privacyPolicy:
         return AppRoutes.privacyPolicy;
       case AppPages.privacyPolicyWebView:

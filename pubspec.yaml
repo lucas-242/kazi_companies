@@ -23,7 +23,8 @@ dependencies:
   kazi_design_system: 
     git:
       url: https://github.com/lucas-242/kazi_design_system.git
-      ref: master
+      ref: 0.1.1
+    # path: C:/Projetos/kazi_design_system
 
 dev_dependencies:
   flutter_test:

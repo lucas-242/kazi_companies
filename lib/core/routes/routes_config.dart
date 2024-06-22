@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kazi_companies/app_shell.dart';
 import 'package:kazi_companies/core/routes/routes.dart';
+import 'package:kazi_companies/presenter/employees/pages/employee_details_page.dart';
+import 'package:kazi_companies/presenter/employees/pages/employees_page.dart';
 import 'package:kazi_companies/presenter/initial/pages/splash_page.dart';
+import 'package:kazi_core/kazi_core.dart';
 
 abstract class RoutesConfig {
   static final router = GoRouter(
@@ -25,14 +28,6 @@ abstract class RoutesConfig {
     builder: (context, state, child) => AppShell(child: child),
     routes: [
       GoRoute(
-        path: AppRoutes.home,
-        pageBuilder: (context, state) => _customTransition(
-          state,
-          // HomePage(showOnboarding: AppRouter.showOnboarding),
-          Container(color: Colors.red),
-        ),
-      ),
-      GoRoute(
         path: AppRoutes.services,
         pageBuilder: (context, state) => _customTransition(
           state,
@@ -41,8 +36,23 @@ abstract class RoutesConfig {
         ),
       ),
       GoRoute(
-        path: AppRoutes.profile,
-        builder: (context, state) => Container(color: Colors.green),
+        path: AppRoutes.clients,
+        pageBuilder: (context, state) => _customTransition(
+          state,
+          // HomePage(showOnboarding: AppRouter.showOnboarding),
+          Container(color: Colors.red),
+        ),
+      ),
+      GoRoute(
+        path: AppRoutes.employees,
+        builder: (context, state) => EmployeesPage(),
+        routes: [
+          GoRoute(
+            path: ':id',
+            builder: (context, state) =>
+                EmployeeDetailsPage(id: (state.extra as RouteParams).id!),
+          ),
+        ],
       ),
     ],
   );
