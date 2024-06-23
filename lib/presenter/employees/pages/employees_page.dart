@@ -3,7 +3,6 @@ import 'package:kazi_companies/core/components/custom_user_data_table.dart';
 import 'package:kazi_companies/core/routes/routes.dart';
 import 'package:kazi_core/kazi_core.dart';
 import 'package:kazi_design_system/kazi_design_system.dart';
-import 'package:kazi_design_system/themes/themes.dart';
 
 class EmployeesPage extends StatelessWidget {
   EmployeesPage({super.key});

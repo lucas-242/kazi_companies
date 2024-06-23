@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:kazi_companies/core/routes/routes.dart';
 import 'package:kazi_companies/domain/models/menu.dart';
 import 'package:kazi_design_system/kazi_design_system.dart';
-import 'package:kazi_design_system/themes/themes.dart';
 
 class AppShell extends StatefulWidget {
   const AppShell({
@@ -21,11 +20,11 @@ class _AppShellState extends State<AppShell> {
   final List<Menu> menus = [
     Menu(
       KaziLocalizations.current.services,
-      KaziAssets.services,
+      KaziSvgAssets.services,
       AppPages.services,
     ),
-    const Menu('Clientes', KaziAssets.person, AppPages.clients),
-    const Menu('Colaboradores', KaziAssets.calculator, AppPages.employees),
+    const Menu('Clientes', KaziSvgAssets.person, AppPages.clients),
+    const Menu('Colaboradores', KaziSvgAssets.calculator, AppPages.employees),
   ];
 
   @override
@@ -69,14 +68,7 @@ class _AppShellState extends State<AppShell> {
         canPop: false,
         onPopInvoked: (_) =>
             context.showLeftBottomSheet().then((shouldPop) => context.pop),
-        child: Stack(
-          children: [
-            SizedBox(
-              height: context.height - KaziSizings.bottomAppBarHeight,
-              child: widget.child,
-            ),
-          ],
-        ),
+        child: widget.child,
       ),
       resizeToAvoidBottomInset: true,
     );
