@@ -218,11 +218,11 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "0.3.0"
-      resolved-ref: "4fd8a05ada170320d5484b9b04daeb590253b582"
+      ref: "0.3.1"
+      resolved-ref: b2c1cec815a88ba091d03cbe41fe7267bcd7d3d1
       url: "https://github.com/lucas-242/kazi_design_system.git"
     source: git
-    version: "0.3.0"
+    version: "0.3.1"
   leak_tracker:
     dependency: transitive
     description:
