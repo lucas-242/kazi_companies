@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kazi_companies/core/routes/routes.dart';
 import 'package:kazi_companies/domain/models/menu.dart';
-import 'package:kazi_design_system/kazi_design_system.dart';
+import 'package:kazi_core/kazi_core.dart';
 
 class AppShell extends StatefulWidget {
   const AppShell({

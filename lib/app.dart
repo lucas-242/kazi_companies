@@ -3,8 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:kazi_companies/app_cubit.dart';
 import 'package:kazi_companies/core/routes/routes.dart';
-import 'package:kazi_design_system/l10n/generated/l10n.dart';
-import 'package:kazi_design_system/themes/themes.dart';
+import 'package:kazi_core/kazi_core.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -24,6 +23,7 @@ class App extends StatelessWidget {
         localizationsDelegates: const [
           KaziLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
         ],
         supportedLocales: KaziLocalizations.delegate.supportedLocales,

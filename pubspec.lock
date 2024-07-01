@@ -209,20 +209,11 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: master
-      resolved-ref: "54c66146b52ce119e2fce1e09142a258a58ee226"
+      ref: "0.1.1"
+      resolved-ref: ca100c5ae9cc5e431bfa15beeb7aeed2e7490d1e
       url: "https://github.com/lucas-242/kazi_core.git"
     source: git
-    version: "0.0.1"
-  kazi_design_system:
-    dependency: "direct main"
-    description:
-      path: "."
-      ref: "0.3.1"
-      resolved-ref: b2c1cec815a88ba091d03cbe41fe7267bcd7d3d1
-      url: "https://github.com/lucas-242/kazi_design_system.git"
-    source: git
-    version: "0.3.1"
+    version: "0.1.1"
   leak_tracker:
     dependency: transitive
     description:

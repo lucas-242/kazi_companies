@@ -1,116 +1,77 @@
 import 'package:flutter/material.dart';
-import 'package:kazi_companies/presenter/components/details_divider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kazi_companies/presenter/employees/components/address_section.dart';
+import 'package:kazi_companies/presenter/employees/components/contact_section.dart';
+import 'package:kazi_companies/presenter/employees/components/personal_section.dart';
+import 'package:kazi_companies/presenter/employees/components/services_section.dart';
+import 'package:kazi_companies/presenter/employees/cubit/employees_cubit.dart';
 import 'package:kazi_core/kazi_core.dart';
-import 'package:kazi_design_system/kazi_design_system.dart';
 
 class EmployeeDetailsPage extends StatelessWidget {
-  EmployeeDetailsPage({super.key, required this.id});
+  const EmployeeDetailsPage({
+    super.key,
+    required this.id,
+    required this.viewState,
+  });
   final int id;
-  final user = User.toCreate(
-    name: 'Jupira Sem Dente',
-    email: 'jupirinha_dentinho@test.com',
-  );
+  final ViewState viewState;
 
   @override
   Widget build(BuildContext context) {
-    final edgeInsets = EdgeInsets.only(
+    final padding = EdgeInsets.only(
       left: context.width * 0.02 + KaziInsets.sm,
       right: KaziInsets.md,
     );
 
-    return Scaffold(
-      body: KaziSafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: edgeInsets,
-                child: Row(
-                  children: [
-                    const CircleAvatar(
-                      radius: KaziInsets.xxxLg,
-                      child: KaziSvg(KaziSvgAssets.logo),
-                    ),
-                    KaziSpacings.horizontalXLg,
-                    Column(
+    return BlocProvider(
+      create: (context) {
+        final cubit = EmployeesCubit();
+        cubit.onInit(id);
+        return cubit;
+      },
+      child: Builder(
+        builder: (context) {
+          return Scaffold(
+            body: KaziSafeArea(
+              child: BlocBuilder<EmployeesCubit, EmployeesState>(
+                buildWhen: (previous, current) =>
+                    previous.status != current.status,
+                builder: (context, state) => state.when(
+                  onState: (_) => SingleChildScrollView(
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(user.name, style: KaziTextStyles.headlineMd),
-                        KaziSpacings.verticalSm,
-                        const Text('Maquiadora'),
+                        PersonalSection(
+                          padding: padding,
+                          user: state.employee!,
+                          isForm: viewState != ViewState.read,
+                        ),
+                        ContactSection(
+                          padding: padding,
+                          user: state.employee!,
+                          isForm: viewState != ViewState.read,
+                        ),
+                        AddressSection(
+                          padding: padding,
+                          user: state.employee!,
+                          isForm: viewState != ViewState.read,
+                        ),
+                        ServicesSection(
+                          padding: padding,
+                          user: state.employee!,
+                          isForm: viewState != ViewState.read,
+                        ),
                       ],
                     ),
-                  ],
+                  ),
+                  onLoading: () => const KaziLoading(),
+                  onNoData: () =>
+                      const Center(child: KaziNoData(message: 'No user found')),
                 ),
               ),
-              KaziSpacings.verticalLg,
-              DetailsDivider(text: KaziLocalizations.current.contact),
-              KaziSpacings.verticalLg,
-              Padding(
-                padding: edgeInsets,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text('(21) 99999-9999'),
-                    KaziSpacings.verticalXs,
-                    const Text('(21) 98888-8888'),
-                    KaziSpacings.verticalXs,
-                    Text(user.email),
-                    KaziSpacings.verticalXs,
-                  ],
-                ),
-              ),
-              KaziSpacings.verticalLg,
-              DetailsDivider(text: KaziLocalizations.current.address),
-              KaziSpacings.verticalLg,
-              Padding(
-                padding: edgeInsets,
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Estrada do Magarça, 1553 - Guaratiba'),
-                    KaziSpacings.verticalXs,
-                    Text('Bl. 03, Apto 108'),
-                    KaziSpacings.verticalXs,
-                    Text('Rio de Janeiro - RJ'),
-                  ],
-                ),
-              ),
-              KaziSpacings.verticalLg,
-              DetailsDivider(text: KaziLocalizations.current.services),
-              KaziSpacings.verticalLg,
-              Padding(
-                padding: edgeInsets,
-                child: const Row(
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Maquiagem Simples'),
-                        KaziSpacings.verticalXs,
-                        Text('Maquiagem de Casamento'),
-                        KaziSpacings.verticalXs,
-                        Text('Maquiagem Artística'),
-                      ],
-                    ),
-                    KaziSpacings.horizontalXLg,
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Maquiagem Simples'),
-                        KaziSpacings.verticalXs,
-                        Text('Maquiagem de Casamento'),
-                        KaziSpacings.verticalXs,
-                        Text('Maquiagem Artística'),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }

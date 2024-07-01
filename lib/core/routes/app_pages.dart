@@ -9,6 +9,8 @@ enum AppPages {
   clients(4),
   employees(5),
   employeeDetails(5),
+  addEmployee(6),
+  updateEmployee(7),
   signIn(10),
   signUp(11),
   forgotPassword(12),
@@ -44,10 +46,15 @@ enum AppPages {
         return '${AppRoutes.services}/${AppRoutes.type}/${AppRoutes.add}';
       case AppPages.clients:
         return AppRoutes.clients;
+
       case AppPages.employees:
         return AppRoutes.employees;
       case AppPages.employeeDetails:
         return '${AppRoutes.employees}/$id';
+      case AppPages.addEmployee:
+        return '${AppRoutes.addEmployee}/$id';
+      case AppPages.updateEmployee:
+        return '${AppRoutes.updateEmployee}/$id';
 
       case AppPages.signIn:
         return AppRoutes.signIn;

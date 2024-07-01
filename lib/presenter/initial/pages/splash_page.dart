@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:kazi_companies/core/routes/routes.dart';
-import 'package:kazi_design_system/themes/themes.dart';
+import 'package:kazi_core/kazi_core.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});

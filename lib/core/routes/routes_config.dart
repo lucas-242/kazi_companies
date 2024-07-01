@@ -5,6 +5,7 @@ import 'package:kazi_companies/core/routes/routes.dart';
 import 'package:kazi_companies/presenter/employees/pages/employee_details_page.dart';
 import 'package:kazi_companies/presenter/employees/pages/employees_page.dart';
 import 'package:kazi_companies/presenter/initial/pages/splash_page.dart';
+import 'package:kazi_core/kazi_core.dart';
 
 abstract class RoutesConfig {
   static final router = GoRouter(
@@ -44,12 +45,27 @@ abstract class RoutesConfig {
       ),
       GoRoute(
         path: AppRoutes.employees,
-        builder: (context, state) => EmployeesPage(),
+        builder: (context, state) => const EmployeesPage(),
         routes: [
           GoRoute(
             path: ':id',
             builder: (context, state) => EmployeeDetailsPage(
               id: int.tryParse(state.pathParameters.values.first)!,
+              viewState: ViewState.read,
+            ),
+          ),
+          GoRoute(
+            path: '${AppRoutes.add}/:id',
+            builder: (context, state) => EmployeeDetailsPage(
+              id: int.tryParse(state.pathParameters.values.first)!,
+              viewState: ViewState.create,
+            ),
+          ),
+          GoRoute(
+            path: '${AppRoutes.update}/:id',
+            builder: (context, state) => EmployeeDetailsPage(
+              id: int.tryParse(state.pathParameters.values.first)!,
+              viewState: ViewState.update,
             ),
           ),
         ],

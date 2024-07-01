@@ -1,61 +1,63 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kazi_companies/core/components/custom_user_data_table.dart';
 import 'package:kazi_companies/core/routes/routes.dart';
+import 'package:kazi_companies/presenter/employees/cubit/employees_cubit.dart';
 import 'package:kazi_core/kazi_core.dart';
-import 'package:kazi_design_system/kazi_design_system.dart';
 
 class EmployeesPage extends StatelessWidget {
-  EmployeesPage({super.key});
-
-  final employees = [
-    User.toCreate(
-      id: 1,
-      name: 'Jupira Sem Dente',
-      email: 'jupirinha_dentinho@test.com',
-    ),
-    User.toCreate(
-      id: 2,
-      name: 'Churusbengou',
-      email: 'churusbengou@test.com',
-    ),
-    User.toCreate(
-      id: 3,
-      name: 'Churusbagou',
-      email: 'churusbagou@test.com',
-    ),
-    User.toCreate(
-      id: 4,
-      name: 'Skkkkkkrrrruuuulll',
-      email: 'skruuulll@test.com',
-    ),
-  ];
+  const EmployeesPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return KaziSafeArea(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Colaboradores',
-                style: KaziTextStyles.headlineMd,
-              ),
-              const KaziCircularButton(child: Icon(Icons.add)),
-            ],
-          ),
-          KaziSpacings.verticalLg,
-          CustomUserDataTable(
-            data: employees,
-            headers: const ['Nome', 'Email', 'Função'],
-            onTap: (user) => context.navigateTo(
-              AppPages.employeeDetails,
-              id: user.id,
+    return BlocProvider(
+      create: (context) {
+        final cubit = EmployeesCubit();
+        cubit.onInit();
+        return cubit;
+      },
+      child: Builder(
+        builder: (context) {
+          return KaziSafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      KaziLocalizations.current.employees,
+                      style: KaziTextStyles.headlineMd,
+                    ),
+                    KaziCircularButton(
+                      child: const Icon(Icons.add),
+                      onTap: () => context.navigateTo(AppPages.addEmployee),
+                    ),
+                  ],
+                ),
+                KaziSpacings.verticalLg,
+                BlocBuilder<EmployeesCubit, EmployeesState>(
+                  buildWhen: (previous, current) =>
+                      previous.status != current.status,
+                  builder: (context, state) => CustomUserDataTable(
+                    data: state.employees,
+                    headers: [
+                      KaziLocalizations.current.name,
+                      KaziLocalizations.current.email,
+                      KaziLocalizations.current.role,
+                    ],
+                    onTap: (user) => context
+                        .navigateTo(AppPages.employeeDetails, id: user.id),
+                    onEdit: (user) => context
+                        .navigateTo(AppPages.updateEmployee, id: user.id),
+                    onDelete: (user) =>
+                        context.showSnackBar('Usuário Deletado'),
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
+          );
+        },
       ),
     );
   }

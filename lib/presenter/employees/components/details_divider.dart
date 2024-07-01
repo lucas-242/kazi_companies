@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kazi_design_system/themes/themes.dart';
+import 'package:kazi_core/kazi_core.dart';
 
 class DetailsDivider extends StatelessWidget {
   const DetailsDivider({super.key, required this.text});

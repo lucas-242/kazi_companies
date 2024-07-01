@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kazi_companies/core/routes/routes.dart';
 import 'package:kazi_core/kazi_core.dart';
-import 'package:kazi_design_system/kazi_design_system.dart';
 
 extension RoutesExtensions on BuildContext {
   void navigateTo(
@@ -49,7 +48,7 @@ extension RoutesExtensions on BuildContext {
   void showSnackBar(
     String message, {
     SnackBarType type = SnackBarType.error,
-    bool hasBottomNavigation = true,
+    bool hasBottomNavigation = false,
     bool horizontalMargin = true,
   }) =>
       showKaziSnackBar(

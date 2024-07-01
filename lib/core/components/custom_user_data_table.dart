@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:kazi_core/kazi_core.dart';
-import 'package:kazi_design_system/themes/themes.dart';
 
 class CustomUserDataTable extends StatelessWidget {
   const CustomUserDataTable({
@@ -8,12 +7,16 @@ class CustomUserDataTable extends StatelessWidget {
     required this.data,
     required this.headers,
     required this.onTap,
+    required this.onEdit,
+    required this.onDelete,
     this.showActions = true,
   });
 
   final List<User> data;
   final List<String> headers;
   final void Function(User) onTap;
+  final void Function(User) onEdit;
+  final void Function(User) onDelete;
   final bool showActions;
 
   @override
@@ -41,24 +44,24 @@ class CustomUserDataTable extends StatelessWidget {
         ],
         rows: data
             .map(
-              (e) => DataRow(
-                onSelectChanged: (_) => onTap(e),
+              (user) => DataRow(
+                onSelectChanged: (_) => onTap(user),
                 cells: [
-                  DataCell(Text(e.name)),
-                  DataCell(Text(e.email)),
-                  DataCell(Text(e.email)),
+                  DataCell(Text(user.name)),
+                  DataCell(Text(user.email)),
+                  DataCell(Text(user.email)),
                   if (showActions)
                     DataCell(
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () => onEdit(user),
                             child: const Icon(Icons.edit),
                           ),
                           KaziSpacings.horizontalMd,
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () => onDelete(user),
                             child: const Icon(Icons.delete),
                           ),
                         ],
