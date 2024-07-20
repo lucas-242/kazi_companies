@@ -10,10 +10,10 @@ import 'package:kazi_core/kazi_core.dart';
 class EmployeeDetailsPage extends StatelessWidget {
   const EmployeeDetailsPage({
     super.key,
-    required this.id,
+    this.id,
     required this.viewState,
   });
-  final int id;
+  final int? id;
   final ViewState viewState;
 
   @override
@@ -43,22 +43,22 @@ class EmployeeDetailsPage extends StatelessWidget {
                       children: [
                         PersonalSection(
                           padding: padding,
-                          user: state.employee!,
+                          user: state.employee,
                           isForm: viewState != ViewState.read,
                         ),
                         ContactSection(
                           padding: padding,
-                          user: state.employee!,
+                          user: state.employee,
                           isForm: viewState != ViewState.read,
                         ),
                         AddressSection(
                           padding: padding,
-                          user: state.employee!,
+                          user: state.employee,
                           isForm: viewState != ViewState.read,
                         ),
                         ServicesSection(
                           padding: padding,
-                          user: state.employee!,
+                          user: state.employee,
                           isForm: viewState != ViewState.read,
                         ),
                       ],

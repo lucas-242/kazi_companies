@@ -52,7 +52,7 @@ enum AppPages {
       case AppPages.employeeDetails:
         return '${AppRoutes.employees}/$id';
       case AppPages.addEmployee:
-        return '${AppRoutes.addEmployee}/$id';
+        return AppRoutes.addEmployee;
       case AppPages.updateEmployee:
         return '${AppRoutes.updateEmployee}/$id';
 

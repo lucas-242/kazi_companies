@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kazi_companies/presenter/employees/components/details_divider.dart';
+import 'package:kazi_companies/presenter/employees/components/section_form_field.dart';
 import 'package:kazi_core/kazi_core.dart';
 
 class ServicesSection extends StatelessWidget {
@@ -12,7 +13,7 @@ class ServicesSection extends StatelessWidget {
 
   final bool isForm;
   final EdgeInsets padding;
-  final User user;
+  final User? user;
 
   @override
   Widget build(BuildContext context) {
@@ -24,20 +25,24 @@ class ServicesSection extends StatelessWidget {
         KaziSpacings.verticalLg,
         Padding(
           padding: padding,
-          child: const Row(
+          child: Row(
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Maquiagem Simples'),
+                  SectionFormField(
+                    label: KaziLocalizations.current.service,
+                    hasButton: true,
+                  ),
+                  const Text('Maquiagem Simples'),
                   KaziSpacings.verticalXs,
-                  Text('Maquiagem de Casamento'),
+                  const Text('Maquiagem de Casamento'),
                   KaziSpacings.verticalXs,
-                  Text('Maquiagem Artística'),
+                  const Text('Maquiagem Artística'),
                 ],
               ),
               KaziSpacings.horizontalXLg,
-              Column(
+              const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('Maquiagem Simples'),

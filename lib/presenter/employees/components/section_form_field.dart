@@ -8,9 +8,11 @@ class SectionFormField extends StatelessWidget {
     super.key,
     this.size = SectionFormFieldSize.sm,
     required this.label,
+    this.hasButton = false,
   });
   final SectionFormFieldSize size;
   final String label;
+  final bool hasButton;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,16 @@ class SectionFormField extends StatelessWidget {
         sm: context.width * .7,
         lg: getWidth(),
       ),
-      child: KaziTextFormField(labelText: label),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Expanded(child: KaziTextFormField(labelText: label)),
+          if (hasButton) ...[
+            KaziSpacings.horizontalMd,
+            const KaziCircularButton(child: Icon(Icons.add)),
+          ],
+        ],
+      ),
     );
   }
 }

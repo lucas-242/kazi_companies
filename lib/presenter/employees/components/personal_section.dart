@@ -13,7 +13,7 @@ class PersonalSection extends StatelessWidget {
 
   final bool isForm;
   final EdgeInsets padding;
-  final User user;
+  final User? user;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class PersonalSection extends StatelessWidget {
                       label: KaziLocalizations.current.name,
                     )
                   else
-                    Text(user.name, style: KaziTextStyles.headlineMd),
+                    Text(user?.name ?? '', style: KaziTextStyles.headlineMd),
                   KaziSpacings.verticalSm,
                   if (isForm)
                     SectionFormField(

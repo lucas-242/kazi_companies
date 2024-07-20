@@ -13,7 +13,7 @@ class ContactSection extends StatelessWidget {
 
   final bool isForm;
   final EdgeInsets padding;
-  final User user;
+  final User? user;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class ContactSection extends StatelessWidget {
               if (isForm)
                 SectionFormField(label: KaziLocalizations.current.email)
               else
-                Text(user.email),
+                Text(user?.email ?? ''),
               KaziSpacings.verticalXs,
             ],
           ),

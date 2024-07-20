@@ -12,7 +12,7 @@ class AddressSection extends StatelessWidget {
 
   final bool isForm;
   final EdgeInsets padding;
-  final User user;
+  final User? user;
 
   @override
   Widget build(BuildContext context) {
