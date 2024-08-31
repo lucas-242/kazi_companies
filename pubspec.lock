@@ -145,7 +145,7 @@ packages:
     source: sdk
     version: "0.0.0"
   flutter_web_plugins:
-    dependency: transitive
+    dependency: "direct main"
     description: flutter
     source: sdk
     version: "0.0.0"
@@ -208,11 +208,9 @@ packages:
   kazi_core:
     dependency: "direct main"
     description:
-      path: "."
-      ref: "0.1.1"
-      resolved-ref: ca100c5ae9cc5e431bfa15beeb7aeed2e7490d1e
-      url: "https://github.com/lucas-242/kazi_core.git"
-    source: git
+      path: "C:\\Projetos\\kazi_core"
+      relative: false
+    source: path
     version: "0.1.1"
   leak_tracker:
     dependency: transitive

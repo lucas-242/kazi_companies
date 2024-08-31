@@ -34,6 +34,7 @@ class ServicesSection extends StatelessWidget {
                     label: KaziLocalizations.current.service,
                     hasButton: true,
                   ),
+                  KaziSpacings.verticalXs,
                   const Text('Maquiagem Simples'),
                   KaziSpacings.verticalXs,
                   const Text('Maquiagem de Casamento'),

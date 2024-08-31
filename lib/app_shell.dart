@@ -23,8 +23,16 @@ class _AppShellState extends State<AppShell> {
       KaziSvgAssets.services,
       AppPages.services,
     ),
-    const Menu('Clientes', KaziSvgAssets.person, AppPages.clients),
-    const Menu('Colaboradores', KaziSvgAssets.calculator, AppPages.employees),
+    Menu(
+      KaziLocalizations.current.clients,
+      KaziSvgAssets.person,
+      AppPages.clients,
+    ),
+    Menu(
+      KaziLocalizations.current.employees,
+      KaziSvgAssets.calculator,
+      AppPages.employees,
+    ),
   ];
 
   @override

@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kazi_companies/app_shell.dart';
 import 'package:kazi_companies/core/routes/routes.dart';
+import 'package:kazi_companies/presenter/clients/pages/clients_page.dart';
 import 'package:kazi_companies/presenter/employees/pages/employee_details_page.dart';
 import 'package:kazi_companies/presenter/employees/pages/employees_page.dart';
 import 'package:kazi_companies/presenter/initial/pages/splash_page.dart';
+import 'package:kazi_companies/presenter/services/pages/services_page.dart';
 import 'package:kazi_core/kazi_core.dart';
 
 abstract class RoutesConfig {
@@ -29,19 +31,13 @@ abstract class RoutesConfig {
     routes: [
       GoRoute(
         path: AppRoutes.services,
-        pageBuilder: (context, state) => _customTransition(
-          state,
-          Container(color: Colors.amber),
-          // ServiceLandingPage(showOnboarding: AppRouter.showOnboarding),
-        ),
+        pageBuilder: (context, state) =>
+            _customTransition(state, const ServicesPage()),
       ),
       GoRoute(
         path: AppRoutes.clients,
-        pageBuilder: (context, state) => _customTransition(
-          state,
-          // HomePage(showOnboarding: AppRouter.showOnboarding),
-          Container(color: Colors.red),
-        ),
+        pageBuilder: (context, state) =>
+            _customTransition(state, const ClientsPage()),
       ),
       GoRoute(
         path: AppRoutes.employees,
