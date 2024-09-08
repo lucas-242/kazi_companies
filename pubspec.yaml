@@ -23,7 +23,6 @@ dependencies:
     #   url: https://github.com/lucas-242/kazi_core.git
     #   ref: 0.1.1
     path: C:/Projetos/kazi_core/
-  pluto_grid: ^8.0.0
 
 dev_dependencies:
   flutter_test:

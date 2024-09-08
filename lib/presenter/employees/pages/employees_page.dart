@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kazi_companies/core/components/custom_user_data_table.dart';
+import 'package:kazi_companies/core/components/custom_user_table.dart';
 import 'package:kazi_companies/core/routes/routes.dart';
 import 'package:kazi_companies/presenter/employees/cubit/employees_cubit.dart';
 import 'package:kazi_core/kazi_core.dart';
@@ -44,20 +44,21 @@ class EmployeesPage extends StatelessWidget {
                           ],
                         ),
                         KaziSpacings.verticalLg,
-                        Expanded(
-                          child: BlocBuilder<EmployeesCubit, EmployeesState>(
-                            buildWhen: (previous, current) =>
-                                previous.status != current.status,
-                            builder: (context, state) => state.when(
-                              onState: () => CustomUserDataTable(
-                                data: state.employees,
-                                onTap: (user) => context.navigateTo(
-                                  AppPages.employeeDetails,
-                                  id: user.id,
-                                ),
-                              ),
-                              onLoading: () => const KaziLoading(),
+                        BlocBuilder<EmployeesCubit, EmployeesState>(
+                          buildWhen: (previous, current) =>
+                              previous.status != current.status,
+                          builder: (context, state) => CustomUserTable(
+                            data: state.employees,
+                            onTap: (user) => context.navigateTo(
+                              AppPages.employeeDetails,
+                              id: user.id,
                             ),
+                            onEdit: (user) => context.navigateTo(
+                              AppPages.updateEmployee,
+                              id: user.id,
+                            ),
+                            onDelete: (user) =>
+                                context.showSnackBar('Usuário Deletado'),
                           ),
                         ),
                       ],
