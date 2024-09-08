@@ -19,42 +19,52 @@ class EmployeesPage extends StatelessWidget {
       child: Builder(
         builder: (context) {
           return KaziSafeArea(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      KaziLocalizations.current.employees,
-                      style: KaziTextStyles.headlineMd,
+            child: LayoutBuilder(
+              builder: (context, size) {
+                return SingleChildScrollView(
+                  child: Container(
+                    width: size.maxWidth,
+                    height: size.maxHeight,
+                    constraints: const BoxConstraints(minHeight: 250),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              KaziLocalizations.current.employees,
+                              style: KaziTextStyles.headlineMd,
+                            ),
+                            KaziCircularButton(
+                              child: const Icon(Icons.add),
+                              onTap: () =>
+                                  context.navigateTo(AppPages.addEmployee),
+                            ),
+                          ],
+                        ),
+                        KaziSpacings.verticalLg,
+                        Expanded(
+                          child: BlocBuilder<EmployeesCubit, EmployeesState>(
+                            buildWhen: (previous, current) =>
+                                previous.status != current.status,
+                            builder: (context, state) => state.when(
+                              onState: () => CustomUserDataTable(
+                                data: state.employees,
+                                onTap: (user) => context.navigateTo(
+                                  AppPages.employeeDetails,
+                                  id: user.id,
+                                ),
+                              ),
+                              onLoading: () => const KaziLoading(),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                    KaziCircularButton(
-                      child: const Icon(Icons.add),
-                      onTap: () => context.navigateTo(AppPages.addEmployee),
-                    ),
-                  ],
-                ),
-                KaziSpacings.verticalLg,
-                BlocBuilder<EmployeesCubit, EmployeesState>(
-                  buildWhen: (previous, current) =>
-                      previous.status != current.status,
-                  builder: (context, state) => CustomUserDataTable(
-                    data: state.employees,
-                    headers: [
-                      KaziLocalizations.current.name,
-                      KaziLocalizations.current.email,
-                      KaziLocalizations.current.role,
-                    ],
-                    onTap: (user) => context
-                        .navigateTo(AppPages.employeeDetails, id: user.id),
-                    onEdit: (user) => context
-                        .navigateTo(AppPages.updateEmployee, id: user.id),
-                    onDelete: (user) =>
-                        context.showSnackBar('Usuário Deletado'),
                   ),
-                ),
-              ],
+                );
+              },
             ),
           );
         },

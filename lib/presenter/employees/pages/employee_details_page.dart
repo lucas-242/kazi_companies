@@ -37,7 +37,7 @@ class EmployeeDetailsPage extends StatelessWidget {
                 buildWhen: (previous, current) =>
                     previous.status != current.status,
                 builder: (context, state) => state.when(
-                  onState: (_) => SingleChildScrollView(
+                  onState: () => SingleChildScrollView(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

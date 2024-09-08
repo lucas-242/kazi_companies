@@ -1,77 +1,71 @@
 import 'package:flutter/material.dart';
 import 'package:kazi_core/kazi_core.dart';
+import 'package:pluto_grid/pluto_grid.dart';
 
 class CustomUserDataTable extends StatelessWidget {
   const CustomUserDataTable({
     super.key,
     required this.data,
-    required this.headers,
     required this.onTap,
-    required this.onEdit,
-    required this.onDelete,
-    this.showActions = true,
   });
 
   final List<User> data;
-  final List<String> headers;
   final void Function(User) onTap;
-  final void Function(User) onEdit;
-  final void Function(User) onDelete;
-  final bool showActions;
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: DataTable(
-        showCheckboxColumn: false,
-        columnSpacing: context.whenScreenSize(
-          xs: KaziInsets.xs,
-          sm: context.width * .022,
-          md: context.width * .092,
-          lg: context.width * .112,
-          xLg: context.width * .144,
-          xxLg: context.width * .152,
-          xxxLg: context.width * .174,
+    final columns = <PlutoColumn>[
+      PlutoColumn(
+        title: '',
+        field: 'id',
+        type: PlutoColumnType.number(),
+        hide: true,
+      ),
+      PlutoColumn(
+        title: KaziLocalizations.current.name,
+        field: 'name',
+        type: PlutoColumnType.text(),
+      ),
+      PlutoColumn(
+        title: KaziLocalizations.current.email,
+        field: 'email',
+        type: PlutoColumnType.text(),
+      ),
+      PlutoColumn(
+        title: KaziLocalizations.current.role,
+        field: 'role',
+        type: PlutoColumnType.text(),
+      ),
+    ];
+
+    final rows = <PlutoRow>[
+      ...data.map(
+        (u) => PlutoRow(
+          key: Key(u.id.toString()),
+          cells: {
+            'id': PlutoCell(value: u.id),
+            'name': PlutoCell(value: u.name),
+            'email': PlutoCell(value: u.email),
+            'role': PlutoCell(value: u.role ?? ''),
+          },
         ),
-        border: TableBorder.all(
-          color: KaziColors.black,
-          borderRadius: const BorderRadius.all(Radius.circular(KaziInsets.xs)),
-        ),
-        columns: [
-          ...headers.map((e) => DataColumn(label: Text(e))),
-          if (showActions) const DataColumn(label: Text('Ações')),
-        ],
-        rows: data
-            .map(
-              (user) => DataRow(
-                onSelectChanged: (_) => onTap(user),
-                cells: [
-                  DataCell(Text(user.name)),
-                  DataCell(Text(user.email)),
-                  DataCell(Text(user.email)),
-                  if (showActions)
-                    DataCell(
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          GestureDetector(
-                            onTap: () => onEdit(user),
-                            child: const Icon(Icons.edit),
-                          ),
-                          KaziSpacings.horizontalMd,
-                          GestureDetector(
-                            onTap: () => onDelete(user),
-                            child: const Icon(Icons.delete),
-                          ),
-                        ],
-                      ),
-                    ),
-                ],
-              ),
-            )
-            .toList(),
+      ),
+    ];
+
+    return PlutoGrid(
+      columns: columns,
+      rows: rows,
+      onSelected: _onSelect,
+      mode: PlutoGridMode.selectWithOneTap,
+      configuration: const PlutoGridConfiguration(
+        localeText: PlutoGridLocaleText.brazilianPortuguese(),
       ),
     );
+  }
+
+  void _onSelect(PlutoGridOnSelectedEvent event) {
+    final id = event.row?.cells.entries.first.value.value as int? ?? 0;
+    final user = data.firstWhere((d) => d.id == id);
+    onTap(user);
   }
 }

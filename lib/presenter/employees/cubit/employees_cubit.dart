@@ -61,21 +61,25 @@ class EmployeesCubit extends Cubit<EmployeesState> with BaseCubit {
       id: 1,
       name: 'Jupira Sem Dente',
       email: 'jupirinha_dentinho@test.com',
+      role: 'Manicure',
     ),
     User.toCreate(
       id: 2,
       name: 'Churusbengou',
       email: 'churusbengou@test.com',
+      role: 'Esteticista',
     ),
     User.toCreate(
       id: 3,
       name: 'Churusbagou',
       email: 'churusbagou@test.com',
+      role: 'Esteticista',
     ),
     User.toCreate(
       id: 4,
       name: 'Skkkkkkrrrruuuulll',
       email: 'skruuulll@test.com',
+      role: 'Cabeleleira',
     ),
   ];
 }
