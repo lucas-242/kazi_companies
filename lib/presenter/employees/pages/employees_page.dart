@@ -12,7 +12,7 @@ class EmployeesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) {
-        final cubit = EmployeesCubit();
+        final cubit = ServiceLocator.get<EmployeesCubit>();
         cubit.onInit();
         return cubit;
       },

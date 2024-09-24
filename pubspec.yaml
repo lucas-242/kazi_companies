@@ -16,12 +16,11 @@ dependencies:
     sdk: flutter
   flutter_web_plugins:
     sdk: flutter
-  get_it: ^7.7.0
   go_router: ^14.1.4
   kazi_core: 
     # git:
     #   url: https://github.com/lucas-242/kazi_core.git
-    #   ref: 0.1.1
+    #   ref: 0.5.0
     path: C:/Projetos/kazi_core/
 
 dev_dependencies:
