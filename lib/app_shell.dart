@@ -74,8 +74,11 @@ class _AppShellState extends State<AppShell> {
       ),
       body: PopScope(
         canPop: false,
-        onPopInvoked: (_) =>
-            context.showLeftBottomSheet().then((shouldPop) => context.pop),
+        onPopInvokedWithResult: (_, __) => context.showLeftBottomSheet().then(
+          (_) {
+            if (context.mounted) context.pop();
+          },
+        ),
         child: widget.child,
       ),
       resizeToAvoidBottomInset: true,
