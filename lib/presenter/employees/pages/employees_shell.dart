@@ -13,7 +13,7 @@ class EmployeesShell extends StatelessWidget {
     return BlocProvider<EmployeesCubit>(
       create: (_) {
         final cubit = ServiceLocator.get<EmployeesCubit>();
-        cubit.onInit(employeeId: employeeId, fromCache: false);
+        cubit.onInit(employeeId: employeeId);
         return cubit;
       },
       child: child,
