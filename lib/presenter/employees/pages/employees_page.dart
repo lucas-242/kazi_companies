@@ -10,62 +10,55 @@ class EmployeesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) {
-        final cubit = ServiceLocator.get<EmployeesCubit>();
-        cubit.onInit();
-        return cubit;
-      },
-      child: Builder(
-        builder: (context) {
-          return KaziSafeArea(
-            child: LayoutBuilder(
-              builder: (context, size) {
-                return SingleChildScrollView(
-                  child: Container(
-                    width: size.maxWidth,
-                    height: size.maxHeight,
-                    constraints: const BoxConstraints(minHeight: 250),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              KaziLocalizations.current.employees,
-                              style: KaziTextStyles.headlineMd,
-                            ),
-                            KaziCircularButton(
-                              child: const Icon(Icons.add),
-                              onTap: () =>
-                                  context.navigateTo(AppPages.addEmployee),
-                            ),
-                          ],
+    context.read<EmployeesCubit>().onInit();
+
+    return KaziSafeArea(
+      child: LayoutBuilder(
+        builder: (context, size) {
+          return SingleChildScrollView(
+            child: Container(
+              width: size.maxWidth,
+              height: size.maxHeight,
+              constraints: const BoxConstraints(minHeight: 250),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        KaziLocalizations.current.employees,
+                        style: KaziTextStyles.headlineMd,
+                      ),
+                      KaziCircularButton(
+                        child: const Icon(Icons.add),
+                        onTap: () => context.navigateTo(AppPages.addEmployee),
+                      ),
+                    ],
+                  ),
+                  KaziSpacings.verticalLg,
+                  BlocBuilder<EmployeesCubit, EmployeesState>(
+                    buildWhen: (previous, current) =>
+                        previous.status != current.status,
+                    builder: (context, state) => state.when(
+                      onState: () => CustomUserTable(
+                        data: state.employees,
+                        onTap: (user) => context.navigateTo(
+                          AppPages.employeeDetails,
+                          id: user.id,
                         ),
-                        KaziSpacings.verticalLg,
-                        BlocBuilder<EmployeesCubit, EmployeesState>(
-                          buildWhen: (previous, current) =>
-                              previous.status != current.status,
-                          builder: (context, state) => CustomUserTable(
-                            data: state.employees,
-                            onTap: (user) => context.navigateTo(
-                              AppPages.employeeDetails,
-                              id: user.id,
-                            ),
-                            onEdit: (user) => context.navigateTo(
-                              AppPages.updateEmployee,
-                              id: user.id,
-                            ),
-                            onDelete: (user) =>
-                                context.showSnackBar('Usuário Deletado'),
-                          ),
+                        onEdit: (user) => context.navigateTo(
+                          AppPages.updateEmployee,
+                          id: user.id,
                         ),
-                      ],
+                        onDelete: (user) =>
+                            context.showSnackBar('Usuário Deletado'),
+                      ),
+                      onLoading: () => const KaziLoading(),
                     ),
                   ),
-                );
-              },
+                ],
+              ),
             ),
           );
         },

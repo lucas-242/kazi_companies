@@ -11,50 +11,56 @@ class EmployeesCubit extends Cubit<EmployeesState> with BaseCubit {
   final GetUserUseCase _getUserUseCase;
   final GetUsersUseCase _getUsersUseCase;
 
-  Future<void> onInit([int? employeeId]) async {
-    emit(state.copyWith(status: StateStatus.loading));
-    var employees = <User>[];
-    User? employee;
+  Future<void> onInit({int? employeeId, bool fromCache = true}) async {
+    try {
+      emit(state.copyWith(status: StateStatus.loading));
+      var employees = state.employees;
+      var employee = state.employee;
 
-    if (employeeId != null) {
-      employee = await _getEmployeeById(employeeId);
-
-      if (employee == null) {
-        return emit(state.copyWith(status: StateStatus.noData));
+      if (employeeId != null) {
+        employee = await _getEmployeeById(employeeId, fromCache);
+      } else {
+        employees = await _getEmployees(fromCache);
       }
-    } else {
-      employees = await _getEmployees();
-    }
 
-    return emit(
-      state.copyWith(
-        status: StateStatus.initial,
-        employee: employee,
-        employees: employees,
-      ),
-    );
-  }
-
-  Future<User?> _getEmployeeById(int id) async {
-    try {
-      return _getUserUseCase(id);
+      return emit(
+        state.copyWith(
+          status: StateStatus.initial,
+          employee: employee,
+          employees: employees,
+        ),
+      );
     } on AppError catch (error) {
       onAppError(error);
     } catch (error) {
       unexpectedError(error);
     }
-    return null;
   }
 
-  Future<List<User>> _getEmployees() async {
-    try {
+  Future<User?> _getEmployeeById(
+    int employeeId, [
+    bool fromCache = true,
+  ]) async {
+    if (!fromCache || state.employees.isEmpty) {
+      return _getUserUseCase(employeeId);
+    }
+
+    final result = state.employees.where((e) => e.id == employeeId);
+
+    if (result.isEmpty) {
+      return _getUserUseCase(employeeId);
+    }
+
+    Log.info('Getting user from cache');
+    return result.first;
+  }
+
+  Future<List<User>> _getEmployees([bool fromCache = true]) async {
+    if (!fromCache || state.employees.isEmpty) {
       return _getUsersUseCase(GetUsersParams(userType: UserType.employee));
-    } on AppError catch (error) {
-      onAppError(error);
-    } catch (error) {
-      unexpectedError(error);
     }
 
-    return <User>[];
+    Log.info('Getting users from cache');
+    return state.employees;
   }
 }

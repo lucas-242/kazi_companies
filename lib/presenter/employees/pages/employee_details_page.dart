@@ -18,60 +18,50 @@ class EmployeeDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<EmployeesCubit>().onInit(employeeId: id);
+
     final padding = EdgeInsets.only(
       left: context.width * 0.02 + KaziInsets.sm,
       right: KaziInsets.md,
     );
 
-    return BlocProvider(
-      create: (context) {
-        final cubit = ServiceLocator.get<EmployeesCubit>();
-        cubit.onInit(id);
-        return cubit;
-      },
-      child: Builder(
-        builder: (context) {
-          return Scaffold(
-            body: KaziSafeArea(
-              child: BlocBuilder<EmployeesCubit, EmployeesState>(
-                buildWhen: (previous, current) =>
-                    previous.status != current.status,
-                builder: (context, state) => state.when(
-                  onState: () => SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        PersonalSection(
-                          padding: padding,
-                          user: state.employee,
-                          isForm: viewState != ViewState.read,
-                        ),
-                        ContactSection(
-                          padding: padding,
-                          user: state.employee,
-                          isForm: viewState != ViewState.read,
-                        ),
-                        AddressSection(
-                          padding: padding,
-                          user: state.employee,
-                          isForm: viewState != ViewState.read,
-                        ),
-                        ServicesSection(
-                          padding: padding,
-                          user: state.employee,
-                          isForm: viewState != ViewState.read,
-                        ),
-                      ],
-                    ),
+    return Scaffold(
+      body: KaziSafeArea(
+        child: BlocBuilder<EmployeesCubit, EmployeesState>(
+          buildWhen: (previous, current) => previous.status != current.status,
+          builder: (context, state) => state.when(
+            onState: () => SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  PersonalSection(
+                    padding: padding,
+                    user: state.employee,
+                    isForm: viewState != ViewState.read,
                   ),
-                  onLoading: () => const KaziLoading(),
-                  onNoData: () =>
-                      const Center(child: KaziNoData(message: 'No user found')),
-                ),
+                  ContactSection(
+                    padding: padding,
+                    user: state.employee,
+                    isForm: viewState != ViewState.read,
+                  ),
+                  AddressSection(
+                    padding: padding,
+                    user: state.employee,
+                    isForm: viewState != ViewState.read,
+                  ),
+                  ServicesSection(
+                    padding: padding,
+                    user: state.employee,
+                    isForm: viewState != ViewState.read,
+                  ),
+                ],
               ),
             ),
-          );
-        },
+            onLoading: () => const KaziLoading(),
+            onNoData: () =>
+                const Center(child: KaziNoData(message: 'No user found')),
+          ),
+        ),
       ),
     );
   }
