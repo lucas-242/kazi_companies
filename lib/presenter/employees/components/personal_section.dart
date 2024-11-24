@@ -36,6 +36,7 @@ class PersonalSection extends StatelessWidget {
                     SectionFormField(
                       size: SectionFormFieldSize.lg,
                       label: KaziLocalizations.current.name,
+                      initialValue: user?.name,
                     )
                   else
                     Text(user?.name ?? '', style: KaziTextStyles.headlineMd),
@@ -44,9 +45,10 @@ class PersonalSection extends StatelessWidget {
                     SectionFormField(
                       size: SectionFormFieldSize.md,
                       label: KaziLocalizations.current.role,
+                      initialValue: user?.role,
                     )
                   else
-                    const Text('Maquiadora'),
+                    Text(user?.role ?? ''),
                 ],
               ),
             ],
@@ -63,12 +65,16 @@ class PersonalSection extends StatelessWidget {
               lg: context.width * 0.35,
             ),
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     if (isForm)
-                      const SectionFormField(label: 'CPF')
+                      SectionFormField(
+                        label: 'CPF',
+                        initialValue: user?.identifier,
+                      )
                     else
                       RichText(
                         text: TextSpan(
@@ -77,31 +83,10 @@ class PersonalSection extends StatelessWidget {
                               text: 'CPF: ',
                               style: KaziTextStyles.titleSm,
                             ),
-                            const TextSpan(text: '123.456.789-00'),
+                            TextSpan(text: user?.identifier),
                           ],
                         ),
                       ),
-                    KaziSpacings.verticalXs,
-                    if (isForm)
-                      const SectionFormField(label: 'RG')
-                    else
-                      RichText(
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: 'RG: ',
-                              style: KaziTextStyles.titleSm,
-                            ),
-                            const TextSpan(text: '123.456-78'),
-                          ],
-                        ),
-                      ),
-                  ],
-                ),
-                KaziSpacings.horizontalXLg,
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
                     KaziSpacings.verticalXs,
                     if (isForm)
                       const SectionFormField(label: 'Nascimento')
@@ -113,13 +98,39 @@ class PersonalSection extends StatelessWidget {
                               text: 'Nascimento: ',
                               style: KaziTextStyles.titleSm,
                             ),
-                            const TextSpan(text: '06/11/2000'),
+                            TextSpan(
+                              text: user!.birthDate.formmat(),
+                            ),
                           ],
                         ),
                       ),
-                    KaziSpacings.verticalXs,
+                    // KaziSpacings.verticalXs,
+                    // if (isForm)
+                    //   const SectionFormField(label: 'RG')
+                    // else
+                    //   RichText(
+                    //     text: TextSpan(
+                    //       children: [
+                    //         TextSpan(
+                    //           text: 'RG: ',
+                    //           style: KaziTextStyles.titleSm,
+                    //         ),
+                    //         const TextSpan(text: '123.456-78'),
+                    //       ],
+                    //     ),
+                    //   ),
+                  ],
+                ),
+                KaziSpacings.horizontalXLg,
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
                     if (isForm)
-                      const SectionFormField(label: 'Admissão')
+                      SectionFormField(
+                        label: 'Admissão',
+                        initialDate: user?.admissionDate,
+                      )
                     else
                       RichText(
                         text: TextSpan(
@@ -128,11 +139,10 @@ class PersonalSection extends StatelessWidget {
                               text: 'Admissão: ',
                               style: KaziTextStyles.titleSm,
                             ),
-                            const TextSpan(text: '13/07/2024'),
+                            TextSpan(text: user!.admissionDate!.formmat()),
                           ],
                         ),
                       ),
-                    KaziSpacings.verticalXs,
                   ],
                 ),
               ],

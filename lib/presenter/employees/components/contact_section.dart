@@ -17,6 +17,8 @@ class ContactSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final phone = user?.phones.firstOrNull ?? '';
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -25,24 +27,23 @@ class ContactSection extends StatelessWidget {
         KaziSpacings.verticalLg,
         Padding(
           padding: padding,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Row(
             children: [
               if (isForm)
-                const SectionFormField(label: 'Tel 1')
-              else
-                const Text('(21) 99999-9999'),
-              KaziSpacings.verticalXs,
-              if (isForm)
-                const SectionFormField(label: 'Tel 2')
-              else
-                const Text('(21) 98888-8888'),
-              KaziSpacings.verticalXs,
-              if (isForm)
-                SectionFormField(label: KaziLocalizations.current.email)
+                SectionFormField(
+                  label: KaziLocalizations.current.email,
+                  initialValue: user?.email,
+                )
               else
                 Text(user?.email ?? ''),
-              KaziSpacings.verticalXs,
+              KaziSpacings.horizontalXLg,
+              if (isForm)
+                SectionFormField(
+                  label: 'Telefone',
+                  initialValue: phone,
+                )
+              else
+                Text(phone),
             ],
           ),
         ),

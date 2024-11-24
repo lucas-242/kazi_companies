@@ -8,14 +8,24 @@ class SectionFormField extends StatelessWidget {
     super.key,
     this.size = SectionFormFieldSize.sm,
     required this.label,
-    this.hasButton = false,
+    this.initialValue,
+    this.initialDate,
+    this.onTap,
   });
   final SectionFormFieldSize size;
   final String label;
-  final bool hasButton;
+  final String? initialValue;
+  final DateTime? initialDate;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
+    final controller = TextEditingController(
+      text: initialDate != null ? initialDate.toString() : initialValue,
+    );
+
+    final today = DateTime.now();
+
     double getWidth() {
       switch (size) {
         case SectionFormFieldSize.sm:
@@ -36,10 +46,26 @@ class SectionFormField extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Expanded(child: KaziTextFormField(labelText: label)),
-          if (hasButton) ...[
+          Expanded(
+            child: initialDate != null
+                ? KaziDatePicker(
+                    controller: controller,
+                    onChange: (date) {},
+                    label: label,
+                    firstDate: DateTime(today.year - 100),
+                    lastDate: today,
+                  )
+                : KaziTextFormField(
+                    labelText: label,
+                    controller: controller,
+                  ),
+          ),
+          if (onTap != null) ...[
             KaziSpacings.horizontalMd,
-            const KaziCircularButton(child: Icon(Icons.add)),
+            KaziCircularButton(
+              onTap: onTap,
+              child: const Icon(Icons.add),
+            ),
           ],
         ],
       ),
